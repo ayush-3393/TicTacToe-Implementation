@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.Exceptions.InvalidBoardDimensionException;
 import org.example.Exceptions.InvalidCountOfPlayersException;
+import org.example.Models.Enums.CellState;
 import org.example.Models.Enums.GameStatus;
+import org.example.Strategies.GameStrategies.GameWinningStrategy;
+import org.example.Strategies.GameStrategies.MostOptimalGameWinningStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +20,54 @@ public class Game {
     private GameStatus gameStatus;
     private int nextPlayerIndex;
     private Player winner;
+    private GameWinningStrategy gameWinningStrategy;
 
     private Game(){
+    }
+
+    public void displayCurrBoard(){
+        board.displayBoard();
+    }
+
+    public void makeNextMove(){
+        Player playerToMove = listOfPlayers.get(nextPlayerIndex);
+        System.out.println("It is " +
+                playerToMove.getName() +
+                "'s turn to move");
+        Move move = playerToMove.decideMove(this.board);
+
+        System.out.println(playerToMove.getName() +
+                "is playing the move at " +
+                "row = " + move.getCell().getRow() +
+                " and col = " + move.getCell().getCol());
+
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        board.getBoard().get(row).get(col).setCellState(CellState.FILLED);
+        board.getBoard().get(row).get(col).setPlayer(playerToMove);
+
+        this.listOfMoves.add(move);
+
+        if (gameWinningStrategy.checkWinner(this.board, playerToMove, move.getCell())){
+            this.setGameStatus(GameStatus.WIN);
+            winner = playerToMove;
+        }
+
+        nextPlayerIndex += 1;
+        nextPlayerIndex %= listOfMoves.size();
+
+    }
+
+
+ //--------------------------Builder Class Below-----------------------------
+    public static Builder builder(){
+        return new Builder();
     }
 
     public static  class Builder {
         private int dimension;
         private List<Player> listOfPlayers;
-
-        public Builder(List<Player> listOfPlayers) {
-            this.listOfPlayers = listOfPlayers;
-        }
-
         public Builder withDimension(int dimension){
             this.dimension = dimension;
             return this;
@@ -56,6 +95,7 @@ public class Game {
             game.setListOfMoves(new ArrayList<>());
             game.setNextPlayerIndex(0);
             game.listOfPlayers = this.listOfPlayers;
+            game.setGameWinningStrategy(new MostOptimalGameWinningStrategy(dimension));
             return game;
         }
 
