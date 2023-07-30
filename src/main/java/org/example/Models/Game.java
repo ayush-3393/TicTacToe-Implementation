@@ -31,13 +31,14 @@ public class Game {
 
     public void makeNextMove(){
         Player playerToMove = listOfPlayers.get(nextPlayerIndex);
+//        System.out.println("NPI = " + nextPlayerIndex);
         System.out.println("It is " +
                 playerToMove.getName() +
                 "'s turn to move");
         Move move = playerToMove.decideMove(this.board);
 
         System.out.println(playerToMove.getName() +
-                "is playing the move at " +
+                " is playing the move at " +
                 "row = " + move.getCell().getRow() +
                 " and col = " + move.getCell().getCol());
 
@@ -48,6 +49,7 @@ public class Game {
         board.getBoard().get(row).get(col).setPlayer(playerToMove);
 
         this.listOfMoves.add(move);
+//        System.out.println("---------");
 
         if (gameWinningStrategy.checkWinner(this.board, playerToMove, move.getCell())){
             this.setGameStatus(GameStatus.WIN);
@@ -55,8 +57,9 @@ public class Game {
         }
 
         nextPlayerIndex += 1;
-        nextPlayerIndex %= listOfMoves.size();
-
+//        System.out.println("NPI2 = " + nextPlayerIndex);
+        nextPlayerIndex %= listOfPlayers.size();
+//        System.out.println("NPI3 = " + nextPlayerIndex);
     }
 
 

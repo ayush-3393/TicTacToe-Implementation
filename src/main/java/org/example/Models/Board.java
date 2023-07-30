@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class Board {
     private List<List<Cell>> board = new ArrayList<>();
-    private int dimension;
+//    private int dimension;
     public Board(int dimension){
         for (int i=0; i<dimension; i++){
             this.board.add(new ArrayList<>());
@@ -22,8 +22,9 @@ public class Board {
     }
 
     public void displayBoard(){
-        for (int i=0; i<this.dimension; i++){
-            for (int j=0; j<this.dimension; j++){
+//        System.out.println("Reached here");
+        for (int i=0; i<board.size(); i++){
+            for (int j=0; j< board.size(); j++){
                 Cell currCell = board.get(i).get(j);
                 if (currCell.getCellState() == CellState.EMPTY){
                     System.out.print("| |");

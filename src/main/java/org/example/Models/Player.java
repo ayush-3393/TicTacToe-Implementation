@@ -3,6 +3,7 @@ package org.example.Models;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.example.Models.Enums.CellState;
 import org.example.Models.Enums.PlayerType;
 
@@ -11,6 +12,7 @@ import java.util.Scanner;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Player {
     private String name;
     private Character symbol;
