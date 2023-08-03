@@ -64,10 +64,18 @@ public class GameRunner {
         }
         gameController.displayBoard(game);
         System.out.println("Game has ended : ");
-        game.setGameStatus(GameStatus.WIN);
-        System.out.println("The winner is : ");
-        System.out.println(gameController.getWinner(game).getName());
-        System.out.println("Congratulations!!!");
+
+        if(game.getGameStatus() == GameStatus.WIN){
+            System.out.println("The winner is : ");
+            System.out.println(gameController.getWinner(game).getName());
+            System.out.println("Congratulations!!!");
+        }
+
+        if (game.getGameStatus() == GameStatus.DRAW){
+            System.out.println("The game ended in a draw!");
+            System.out.println("To decide a winner play again.");
+        }
+
 
     }
 }
