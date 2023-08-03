@@ -56,6 +56,10 @@ public class Game {
             winner = playerToMove;
         }
 
+        if (listOfMoves.size() == (board.getBoard().size() * board.getBoard().size())){
+            this.setGameStatus(GameStatus.DRAW);
+        }
+
         nextPlayerIndex += 1;
 //        System.out.println("NPI2 = " + nextPlayerIndex);
         nextPlayerIndex %= listOfPlayers.size();

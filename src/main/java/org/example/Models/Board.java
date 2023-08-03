@@ -27,10 +27,10 @@ public class Board {
             for (int j=0; j< board.size(); j++){
                 Cell currCell = board.get(i).get(j);
                 if (currCell.getCellState() == CellState.EMPTY){
-                    System.out.print("| |");
+                    System.out.print(" [   ] ");
                 }
                 else {
-                    System.out.print("| " + currCell.getPlayer().getSymbol() + " |");
+                    System.out.print(" [ " + currCell.getPlayer().getSymbol() + " ] ");
                 }
             }
             System.out.println();
