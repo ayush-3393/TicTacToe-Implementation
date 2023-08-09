@@ -7,6 +7,8 @@ import org.example.Models.Enums.GameStatus;
 import org.example.Models.Enums.PlayerType;
 import org.example.Models.Game;
 import org.example.Models.Player;
+import org.example.Strategies.BotStrategies.BotPlayingStrategy;
+import org.example.Strategies.BotStrategies.EasyBotPlayingStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class GameRunner {
             System.out.println("Enter Bot Symbol (Only one character) : ");
             String botSymbol = scanner.next();
             Bot bot = new Bot(botName, botSymbol.charAt(0), PlayerType.BOT, BotDifficultyLevel.EASY);
+
             listOfPlayers.add(bot);
         }
 
