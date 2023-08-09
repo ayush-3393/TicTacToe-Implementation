@@ -6,6 +6,8 @@ import org.example.Exceptions.InvalidBoardDimensionException;
 import org.example.Exceptions.InvalidCountOfPlayersException;
 import org.example.Models.Enums.CellState;
 import org.example.Models.Enums.GameStatus;
+import org.example.Strategies.BotStrategies.BotPlayingStrategy;
+import org.example.Strategies.BotStrategies.EasyBotPlayingStrategy;
 import org.example.Strategies.GameStrategies.GameWinningStrategy;
 import org.example.Strategies.GameStrategies.MostOptimalGameWinningStrategy;
 
@@ -21,6 +23,7 @@ public class Game {
     private int nextPlayerIndex;
     private Player winner;
     private GameWinningStrategy gameWinningStrategy;
+    private BotPlayingStrategy botPlayingStrategy;
 
     private Game(){
     }
@@ -35,6 +38,7 @@ public class Game {
         System.out.println("It is " +
                 playerToMove.getName() +
                 "'s turn to move");
+
         Move move = playerToMove.decideMove(this.board);
 
         System.out.println(playerToMove.getName() +
@@ -103,6 +107,7 @@ public class Game {
             game.setNextPlayerIndex(0);
             game.listOfPlayers = this.listOfPlayers;
             game.setGameWinningStrategy(new MostOptimalGameWinningStrategy(dimension));
+            game.setBotPlayingStrategy(new EasyBotPlayingStrategy());
             return game;
         }
 
